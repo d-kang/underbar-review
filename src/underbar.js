@@ -77,13 +77,12 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = (collection, test) => {
-    const filtered = [];
-    _.each(collection, elem => {
+    return _.reduce(collection, (memo, elem, i, arr) => {
       if (test(elem)) {
-        filtered.push(elem);
+        memo.push(elem);
       }
-    });
-    return filtered;
+      return memo;
+    }, []);
   };
 
   // Return all elements of an array that don't pass a truth test.
