@@ -67,13 +67,12 @@
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = (array, target) => {
-    var result = -1;
-    _.each(array, (item, index) => {
-      if (item === target && result === -1) {
-        result = index;
+    return _.reduce(array, (memo, elem, index, array) => {
+      if (elem === target && memo === -1) {
+        memo = index;
       }
-    });
-    return result;
+      return memo;
+    }, -1);
   };
 
   // Return all elements of an array that pass a truth test.
@@ -141,11 +140,11 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, memo) {
-    _.each(collection, (elem, index, array) => {
+    _.each(collection, (elem, index, collection) => {
       if (memo === undefined && index === 0) {
         memo = collection[0];
       } else {
-        memo = iterator(memo, collection[index], array);
+        memo = iterator(memo, collection[index], index, collection);
       }
     });
     return memo;
