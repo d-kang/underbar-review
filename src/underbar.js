@@ -321,28 +321,6 @@
       return _.map(collection, a => functionOrKey.call(a));
     }
   };
-  // describe('invoke, when provided a function reference', function() {
-  //
-  //   it('runs the input function on each item in the array, and returns a list of results', function() {
-  //     var reverse = function() {
-  //       return this.split('').reverse().join('');
-  //     };
-  //
-  //     var reversedStrings = _.invoke(['dog', 'cat'], reverse);
-  //
-  //     expect(reversedStrings).to.eql(['god', 'tac']);
-  //   });
-  //
-  // });
-  //
-  // describe('invoke, when provided a method name', function() {
-  //
-  //   it('runs the specified method on each item in the array, and returns a list of results', function() {
-  //     var upperCasedStrings = _.invoke(['dog', 'cat'], 'toUpperCase');
-  //
-  //     expect(upperCasedStrings).to.eql(['DOG', 'CAT']);
-  //   });
-  // });
 
   // Sort the object's values by a criterion produced by an iterator.
   // If iterator is a string, sort objects by that property with the name
@@ -361,14 +339,15 @@
   //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
-  _.zip = function() {
+  _.zip = (...args) => {
+    return _.intersection(...args);
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
-  _.flatten = function(nested, result) {
+  _.flatten = (nested, result) => {
     // [1, [2], [3, [[[4]]]]];
     const flattened = [];
     const recurse = (arr) => {
@@ -386,7 +365,7 @@
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
-  _.intersection = function(...args) {
+  _.intersection = (...args) => {
     const longest = args.slice()
       .sort((a, b) => a.length - b.length)
       .pop();
@@ -406,7 +385,7 @@
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
-  _.difference = function(arr1, ...$array) {
+  _.difference = (arr1, ...$array) => {
     return _.reduce(arr1, (memo, target) => {
       let isUnique = _.every($array, (arr) => {
         return _.indexOf(arr, target) === -1;
