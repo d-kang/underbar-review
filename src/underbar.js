@@ -79,21 +79,20 @@
   _.filter = (collection, test) =>
     _.reduce(collection, (memo, elem, i, arr) =>
       test(elem)
-        ? (memo.push(elem), memo) 
+        ? (memo.push(elem), memo)
         : memo, []);
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = (collection, test) => _.filter(collection, elem => !test(elem));
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
-    const noDups = [];
-    _.each(array, (elem) => {
-      if (_.indexOf(noDups, elem) === -1) {
-        noDups.push(elem);
+  _.uniq = array => {
+    return _.reduce(array, (memo, elem) => {
+      if (_.indexOf(memo, elem) === -1) {
+        memo.push(elem);
       }
-    });
-    return noDups;
+      return memo;
+    }, []);
   };
 
 
