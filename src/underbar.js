@@ -78,10 +78,7 @@
   // Return all elements of an array that pass a truth test.
   _.filter = (collection, test) => {
     return _.reduce(collection, (memo, elem, i, arr) => {
-      if (test(elem)) {
-        memo.push(elem);
-      }
-      return memo;
+      return test(elem) ? (memo.push(elem), memo) : memo;
     }, []);
   };
 
