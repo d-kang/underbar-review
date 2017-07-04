@@ -354,7 +354,22 @@
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
-  _.intersection = function() {
+  _.intersection = function(...args) {
+    const longest = args.slice()
+      .sort((a, b) => a.length - b.length)
+      .pop();
+    const main = [];
+    for (let i = 0; i < longest.length; i++) {
+      let inner = [];
+      for (let k = 0; k < args.length; k++) {
+        inner.push(args[k][i]);
+        if (k === args.length - 1) {
+          main.push(inner);
+          inner = [];
+        }
+      }
+    }
+    return main;
   };
 
   // Take the difference between one array and a number of other arrays.
