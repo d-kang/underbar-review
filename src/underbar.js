@@ -234,8 +234,8 @@
     // TIP: These variables are stored in a "closure scope" (worth researching),
     // so that they'll remain available to the newly-generated function every
     // time it's called.
-    var alreadyCalled = false;
-    var result;
+    let alreadyCalled = false;
+    let result;
 
     // TIP: We'll return a new function that delegates to the old one, but only
     // if it hasn't been called before.
@@ -260,6 +260,14 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    const memo = {};
+    return (...args) => {
+      const arg = args.join(':');
+      if (!memo.hasOwnProperty(arg)) {
+        memo[arg] = func(...args);
+      }
+      return memo[arg];
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
