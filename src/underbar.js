@@ -336,7 +336,20 @@
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
-  _.flatten = function(nestedArray, result) {
+  _.flatten = function(nested, result) {
+    // [1, [2], [3, [[[4]]]]];
+    const flattened = [];
+    const recurse = (arr) => {
+      _.reduce(arr, (memo, elem) => {
+        if (Array.isArray(elem)) {
+          recurse(elem);
+        } else {
+          flattened.push(elem);
+        }
+      }, null);
+    };
+    recurse(nested);
+    return flattened;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
