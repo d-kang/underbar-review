@@ -315,7 +315,34 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    if (typeof functionOrKey === 'string') {
+      return _.map(collection, a => a[functionOrKey]());
+    } else {
+      return _.map(collection, a => functionOrKey.call(a));
+    }
   };
+  // describe('invoke, when provided a function reference', function() {
+  //
+  //   it('runs the input function on each item in the array, and returns a list of results', function() {
+  //     var reverse = function() {
+  //       return this.split('').reverse().join('');
+  //     };
+  //
+  //     var reversedStrings = _.invoke(['dog', 'cat'], reverse);
+  //
+  //     expect(reversedStrings).to.eql(['god', 'tac']);
+  //   });
+  //
+  // });
+  //
+  // describe('invoke, when provided a method name', function() {
+  //
+  //   it('runs the specified method on each item in the array, and returns a list of results', function() {
+  //     var upperCasedStrings = _.invoke(['dog', 'cat'], 'toUpperCase');
+  //
+  //     expect(upperCasedStrings).to.eql(['DOG', 'CAT']);
+  //   });
+  // });
 
   // Sort the object's values by a criterion produced by an iterator.
   // If iterator is a string, sort objects by that property with the name
