@@ -31,19 +31,19 @@
   // return just the first element.
   _.first = (array, n) =>
     n === undefined
-    ? array[0]
-    : array.slice(0, n);
+      ? array[0]
+      : array.slice(0, n);
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = (array, n) =>
     n === 0
-    ? []
-    : n === undefined
-    ? array.slice().pop()
-    : n > array.length
-    ? array
-    : array.slice(-n);
+      ? []
+      : n === undefined
+        ? array.slice().pop()
+        : n > array.length
+          ? array
+          : array.slice(-n);
 
 
 
@@ -92,6 +92,13 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    const noDups = [];
+    _.each(array, (elem) => {
+      if (_.indexOf(noDups, elem) === -1) {
+        noDups.push(elem);
+      }
+    });
+    return noDups;
   };
 
 
