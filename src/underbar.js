@@ -76,11 +76,11 @@
   };
 
   // Return all elements of an array that pass a truth test.
-  _.filter = (collection, test) => {
-    return _.reduce(collection, (memo, elem, i, arr) => {
-      return test(elem) ? (memo.push(elem), memo) : memo;
-    }, []);
-  };
+  _.filter = (collection, test) =>
+    _.reduce(collection, (memo, elem, i, arr) =>
+      test(elem)
+        ? (memo.push(elem), memo) 
+        : memo, []);
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = (collection, test) => _.filter(collection, elem => !test(elem));
