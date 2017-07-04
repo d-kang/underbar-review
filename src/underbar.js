@@ -158,9 +158,8 @@
     }, false);
   };
 
-
   // Determine whether all of the elements match a truth test.
-  _.every = function(collection, iterator = _.identity) {
+  _.every = (collection, iterator = _.identity) => {
     return _.reduce(collection, (memo, elem, index, arr) => {
       if (!memo) {
         return false;
@@ -171,8 +170,10 @@
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
-  _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+  _.some = (collection, iterator = _.identity) => {
+    return !_.every(collection, (elem) => {
+      return !iterator(elem);
+    });
   };
 
 
