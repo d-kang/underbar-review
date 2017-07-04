@@ -374,7 +374,16 @@
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
-  _.difference = function(array) {
+  _.difference = function(arr1, ...$array) {
+    return _.reduce(arr1, (memo, target) => {
+      let isUnique = _.every($array, (arr) => {
+        return _.indexOf(arr, target) === -1;
+      });
+      if (isUnique) {
+        memo.push(target);
+      }
+      return memo;
+    }, []);
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
