@@ -98,9 +98,10 @@
 
   // Return the results of applying an iterator to each element.
   _.map = (collection, iterator) => {
-    const mapped = [];
-    _.each(collection, (elem, index, array) => mapped.push(iterator(elem, index, array)));
-    return mapped;
+    return _.reduce(collection, (memo, elem, index, array) => {
+      memo.push(iterator(elem, index, array));
+      return memo;
+    }, []);
   };
 
   /*
