@@ -292,7 +292,11 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = (array) => {
-    return _.reduce(array, (memo, elem) => {
+    const len = array.length;
+    const copy = array.slice(0, len / 2)
+      .concat(array.slice(len / 2, len));
+
+    return _.reduce(copy, (memo, elem) => {
       let randNo = Math.random();
       if (randNo > 0.5) {
         memo.push(elem);
@@ -403,5 +407,27 @@
   //
   // Note: This is difficult! It may take a while to implement.
   _.throttle = function(func, wait) {
+
   };
+  // describe('throttle, when given a wait of 100ms', function() {
+  //   var callback;
+  //
+  //   beforeEach(function() {
+  //     callback = sinon.spy();
+  //   });
+  //
+  //
+  //   it('should return a function callable twice in the first 200ms', function() {
+  //     var fn = _.throttle(callback, 100);
+  //     fn(); // called
+  //     setTimeout(fn, 50);
+  //     setTimeout(fn, 100); // called
+  //     setTimeout(fn, 150);
+  //     setTimeout(fn, 199);
+  //     clock.tick(200);
+  //
+  //     expect(callback).to.have.been.calledTwice;
+  //   });
+  //
+  // });
 }());
