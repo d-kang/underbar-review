@@ -45,8 +45,6 @@
           ? array
           : array.slice(-n);
 
-
-
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
   //
@@ -135,7 +133,7 @@
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
-  _.reduce = function(collection, iterator, memo) {
+  _.reduce = (collection, iterator, memo) => {
     _.each(collection, (elem, index, collection) => {
       if (memo === undefined && index === 0) {
         memo = collection[0];
@@ -230,20 +228,21 @@
 
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
-  _.once = function(func) {
+  _.once = func => {
     // TIP: These variables are stored in a "closure scope" (worth researching),
     // so that they'll remain available to the newly-generated function every
     // time it's called.
     let alreadyCalled = false;
     let result;
-
     // TIP: We'll return a new function that delegates to the old one, but only
     // if it hasn't been called before.
     return function() {
       if (!alreadyCalled) {
         // TIP: .apply(this, arguments) is the standard way to pass on all of the
         // infromation from one function call to another.
+
         result = func.apply(this, arguments);
+        console.log({result, this: this});
         alreadyCalled = true;
       }
       // The new function always returns the originally computed result.
@@ -259,7 +258,7 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
-  _.memoize = function(func) {
+  _.memoize = func => {
     const memo = {};
     return (...args) => {
       const arg = args.join(':');
@@ -276,7 +275,7 @@
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
-  _.delay = function(func, wait, ...args) {
+  _.delay = (func, wait, ...args) => {
     setTimeout(() => func(...args), wait);
   };
 
@@ -317,7 +316,7 @@
 
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
-  _.invoke = function(collection, functionOrKey, args) {
+  _.invoke = (collection, functionOrKey, args) => {
     if (typeof functionOrKey === 'string') {
       return _.map(collection, a => a[functionOrKey]());
     } else {
@@ -329,7 +328,7 @@
   // If iterator is a string, sort objects by that property with the name
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
-  _.sortBy = function(collection, iterator) {
+  _.sortBy = (collection, iterator) => {
     if (typeof iterator === 'string') {
       return collection.sort((a, b) => a[iterator] - b[iterator]);
     } else if (typeof iterator === 'function') {
